@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
-
+import 'package:final_app/Screens/Side_menu.dart';
+import 'package:final_app/Screens/Add_Task_Screen.dart';
+import 'package:final_app/Screens/bottom_nav_bar.dart';
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
 class _HomePageState extends State<HomePage> {
+  int selectedIndex = 1;
   DateTime today = DateTime.now();
   DateTime selectedDate = DateTime.now();
   final ScrollController _scrollController = ScrollController();
   late DateTime startDate;
+
   List<Map<String, dynamic>> tasks=[
     {"title": "JAVA Task", "subject": "JAVA", "color": Color(0xFFB5B8C5), "star": false},
     {"title": "Physics Task", "subject": "Physics", "color": Color(0xFF8B1A1A), "star": false},
@@ -37,7 +41,7 @@ class _HomePageState extends State<HomePage> {
     startDate = DateTime(today.year, 1, 1);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       int index = today.difference(startDate).inDays;
-      _scrollController.jumpTo(index * 80.0);
+      _scrollController.jumpTo( index * 80.0);
     });
   }
   @override
@@ -47,6 +51,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Color(0xFFEDEDED),
       appBar: AppBar(
+        leading: null,
+          actions: [
+            Builder(builder: (context) => IconButton(onPressed: (){
+              Scaffold.of(context).openDrawer();
+            }, icon: Icon(Icons.segment_rounded, color: Colors.white,size: 30,)))
+          ],
         backgroundColor: Color(0xFF0F172A),
         toolbarHeight: 280,
         elevation: 0,
@@ -70,10 +80,6 @@ class _HomePageState extends State<HomePage> {
                       Navigator.pop(context);
                     },
                   ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.segment, color: Colors.white, size: 30),
-                  onPressed: () {},
                 ),
               ],
             ),
@@ -153,6 +159,9 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      drawer: CustomDrawer(
+
+      ),
       body: Container(
         color: Color(0xFF0F172A),
         child: Container(
@@ -230,23 +239,14 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFF0F172A),
-        child: Icon(Icons.add, color: Colors.white),
-        onPressed: () {},
-      ),
-      bottomNavigationBar: FluidNavBar(
-        icons: [
-          FluidNavBarIcon(icon: Icons.home),
-          FluidNavBarIcon(icon: Icons.access_time),
-          FluidNavBarIcon(icon: Icons.menu_book),
-          FluidNavBarIcon(icon: Icons.note_add),
-        ],
-        onChange: (index) {},
-        style: FluidNavBarStyle(
-          barBackgroundColor: Color(0xFF0F172A),
-          iconSelectedForegroundColor: Colors.white,
-        ),
+
+      bottomNavigationBar: CustomBottomNav(
+        selectedIndex: selectedIndex,
+        onChange: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
       ),
     );
   }

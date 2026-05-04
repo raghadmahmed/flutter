@@ -4,6 +4,7 @@ import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:final_app/Screens/Side_menu.dart';
 import 'package:final_app/Screens/notes_screen.dart';
 import 'package:final_app/Screens/All_Tasks.dart';
+import 'package:final_app/Screens/bottom_nav_bar.dart';
 
 
 class Myhome extends StatefulWidget {
@@ -12,50 +13,33 @@ class Myhome extends StatefulWidget {
 }
 
 class _MyhomeState extends State<Myhome> {
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFEDEDED),
 
-      bottomNavigationBar: FluidNavBar(
-        icons: [
-          FluidNavBarIcon(
-            icon: Icons.home,
-            backgroundColor: Color(0xFF0F172A),
-            selectedForegroundColor: Colors.white,
-            extras: {"label": "home"},
-          ),
-          FluidNavBarIcon(
-            icon: Icons.access_time,
-            backgroundColor: Color(0xFF0F172A),
-            extras: {"label": "time"},
-          ),
-          FluidNavBarIcon(
-            icon: Icons.menu_book,
-            backgroundColor: Color(0xFF0F172A),
-            extras: {"label": "book"},
-          ),
-          FluidNavBarIcon(
-            icon: Icons.note_add,
-            backgroundColor: Color(0xFF0F172A),
-            extras: {"label": "notes"},
-          ),
-        ],
-        onChange: (index) {},
-        style: FluidNavBarStyle(
-          barBackgroundColor: Color(0xFF0F172A),
-          iconSelectedForegroundColor: Colors.white,
-        ),
-        scaleFactor: 1.5,
-        defaultIndex: 0,
-        itemBuilder: (icon, item) =>
-            Semantics(label: icon.extras!["label"], child: item),
+      bottomNavigationBar: CustomBottomNav(
+        selectedIndex: selectedIndex,
+        onChange: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
       ),
 
       appBar: AppBar(
-        title: Text("s"),
+        leading: null,
+        actions: [
+          Builder(builder: (context) => IconButton(onPressed: (){
+            Scaffold.of(context).openDrawer();
+          }, icon: Icon(Icons.segment_rounded, color: Colors.white,size: 30,)))
+        ],
+
         backgroundColor: Color(0xFF0F172A),
+
       ),
+
 
       drawer: CustomDrawer(),
 
@@ -101,7 +85,6 @@ class _MyhomeState extends State<Myhome> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
 
-                    // Subjects
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -131,7 +114,6 @@ class _MyhomeState extends State<Myhome> {
                       ),
                     ),
 
-                    // Notes
                     GestureDetector(
                       onTap: () {
                         Navigator.push(

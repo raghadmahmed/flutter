@@ -1,6 +1,7 @@
 import 'package:final_app/Screens/Notes_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
+import 'package:final_app/Screens/Lessons_Screen.dart';
 class Profile extends StatefulWidget {
   @override
   State<Profile> createState() => _ProfileState();
@@ -120,7 +121,8 @@ class _ProfileState extends State<Profile> {
                       childAspectRatio: 1.5,
                     ),
                     itemBuilder:(context, index) {
-                      return GestureDetector(onTap:(){Navigator.push(context,MaterialPageRoute(builder: (context) => Notes(
+                      return GestureDetector(onTap:(){Navigator.push(context,MaterialPageRoute(builder: (context) => SubjectPage(
+                        subjectName: filteredSubjects[index]["name"],
                       ),
                       ),
                       );

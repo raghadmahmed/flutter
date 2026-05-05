@@ -17,7 +17,6 @@ class NotesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<AppProvider>(context);
 
-    // 🔍 فلترة ذكية (لو السيرش فاضي هيرجع كل النوتس)
     final notesToShow = provider.query.isEmpty
         ? provider.notes
         : provider.notes.where((note) {
@@ -30,6 +29,7 @@ class NotesScreen extends StatelessWidget {
       backgroundColor: const Color(0xFF0F172A),
 
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: 150,
         backgroundColor: const Color(0xFF0F172A),
         elevation: 0,
@@ -40,14 +40,19 @@ class NotesScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(6),
+                  width: 30,
+                  height: 30,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
                     color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(
-                    Icons.arrow_back_ios_outlined,
-                    color: Color(0xFF0F172A),
+                  child: IconButton(
+                    icon: Icon(Icons.chevron_left, size: 16),
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
                 ),
                 const Icon(Icons.segment_rounded, color: Colors.white),
@@ -78,19 +83,19 @@ class NotesScreen extends StatelessWidget {
 
             Container(
               width: 330,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
-                color: const Color(0xFFEDEDED),
-                borderRadius: BorderRadius.circular(15)
+                color: Color(0xFFEDEDED),
+                borderRadius: BorderRadius.circular(15),
               ),
               child: TextField(
                 onChanged: (value) {
                   provider.setQuery(value);
                 },
-                decoration: const InputDecoration(
-                  hintText: "Search Subject",
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
-                  border: InputBorder.none,
+                  decoration: InputDecoration(
+                    hintText: "Search Notes",
+                    prefixIcon: Icon(Icons.search, color: Colors.grey),
+                    border: InputBorder.none,
                 ),
               ),
             ),
@@ -129,7 +134,6 @@ class NotesScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
 
-                          // ⭐ Title + Fav
                           Row(
                             children: [
                               GestureDetector(
@@ -179,7 +183,6 @@ class NotesScreen extends StatelessWidget {
               ),
             ),
 
-            // ➕ Add Button
             SizedBox(
               width: double.infinity,
               height: 52,

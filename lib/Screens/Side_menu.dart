@@ -5,6 +5,7 @@ import 'package:final_app/Screens/Timer_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:final_app/Screens/Subjects.dart';
 import 'package:final_app/Screens/Lessons_Screen.dart';
+import 'package:final_app/Screens/Profile_Screen.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -28,11 +29,25 @@ class _CustomDrawerState extends State<CustomDrawer> {
             color: const Color(0xFF0F172A),
             child: Row(
               spacing: 20,
-              children: const [
-                CircleAvatar(
-                  radius: 35,
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.person_outline_rounded, size: 50, color: Color(0xFF0F172A)),
+              children:  [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(),
+                      ),
+                    );
+                  },
+                  child: CircleAvatar(
+                    radius: 35,
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.person_outline_rounded,
+                      size: 50,
+                      color: Color(0xFF0F172A),
+                    ),
+                  ),
                 ),
                 SizedBox(height: 10),
                 Text(
@@ -48,85 +63,89 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ),
 
           Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(15),
-              children: [
 
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isOpen = !isOpen;
-                    });
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: const [
-                          Icon(Icons.grid_view_rounded, color: Color(0xFF0F172A),),
-                          SizedBox(width: 10),
-                          Text(
-                            "Category",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+            child: Container(
+              color: Color(0xFFEDEDED),
+              child: ListView(
+                padding: const EdgeInsets.all(15),
+                children: [
+
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isOpen = !isOpen;
+                      });
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: const [
+                            Icon(Icons.grid_view_rounded, color: Color(0xFF0F172A),),
+                            SizedBox(width: 10),
+                            Text(
+                              "Category",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
 
-                      Icon(
-                        isOpen
-                            ? Icons.keyboard_arrow_down
-                            : Icons.keyboard_arrow_up,
-                      ),
-                    ],
+                        Icon(
+                          isOpen
+                              ? Icons.keyboard_arrow_down
+                              : Icons.keyboard_arrow_up,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
 
-                if (isOpen) ...[
-                  const SizedBox(height: 15),
+                  if (isOpen) ...[
+                    const SizedBox(height: 15),
 
-                  _buildItem(context, "Flutter", Icons.menu_book, () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SubjectPage(
-                      subjectName: "Flutter",
+                    _buildItem(context, "Flutter", Icons.library_books_rounded, () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubjectPage(
+                        subjectName: "Flutter",
 
-                    )));
+                      )));
+                    }),
+                    _buildItem(context, "Java", Icons.library_books_rounded, () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubjectPage(
+                        subjectName: "Java",)));
+                    }),
+                    _buildItem(context, "Math", Icons.library_books_rounded, () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubjectPage(
+                        subjectName: "Math",)));
+
+                    }),
+                    _buildItem(context, "Testing", Icons.library_books_rounded, () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubjectPage(
+                        subjectName: "Testing",)));
+
+                    }),
+                  ],
+
+                  const SizedBox(height: 20),
+
+                  _buildItem(context, "Starred", Icons.star, () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => StudyPage()));
+
                   }),
-                  _buildItem(context, "Java", Icons.menu_book, () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SubjectPage(
-                      subjectName: "Java",)));
+                  _buildItem(context, "Theme", Icons.format_paint, () {}),
+                  _buildItem(context, "Timer", Icons.timer, () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => TimerPage()));
                   }),
-                  _buildItem(context, "Math", Icons.menu_book, () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SubjectPage(
-                      subjectName: "Math",)));
+                  _buildItem(context, "Settings", Icons.settings, () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Setting()));
+                  }),
 
-                  }),
-                  _buildItem(context, "Testing", Icons.menu_book, () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SubjectPage(
-                      subjectName: "Testing",)));
+                  const SizedBox(height: 20),
 
-                  }),
+                  _buildItem(context, "Log Out", Icons.logout, () {}),
                 ],
-
-                const SizedBox(height: 20),
-
-                _buildItem(context, "Starred", Icons.star, () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => StudyPage()));
-
-                }),
-                _buildItem(context, "Theme", Icons.format_paint, () {}),
-                _buildItem(context, "Timer", Icons.timer, () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => TimerPage()));
-                }),
-                _buildItem(context, "Settings", Icons.settings, () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Setting()));
-                }),
-
-                const SizedBox(height: 20),
-
-                _buildItem(context, "Log Out", Icons.logout, () {}),
-              ],
+              ),
             ),
           ),
         ],

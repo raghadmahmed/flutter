@@ -29,7 +29,7 @@ class _MyhomeState extends State<Myhome> {
       ),
 
       appBar: AppBar(
-        leading: null,
+        automaticallyImplyLeading: false,
         actions: [
           Builder(builder: (context) => IconButton(onPressed: (){
             Scaffold.of(context).openDrawer();
@@ -39,7 +39,6 @@ class _MyhomeState extends State<Myhome> {
         backgroundColor: Color(0xFF0F172A),
 
       ),
-
 
       drawer: CustomDrawer(),
 

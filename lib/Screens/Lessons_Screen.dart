@@ -20,7 +20,6 @@ class _SubjectPageState extends State<SubjectPage> {
   Widget build(BuildContext context) {
     final provider = Provider.of<AppProvider>(context);
 
-    // فلترة الليسونز حسب البحث
     List<String> filteredLessons = provider.lessons.where((lesson) {
       return lesson.toLowerCase().contains(searchText.toLowerCase());
     }).toList();
@@ -79,7 +78,6 @@ class _SubjectPageState extends State<SubjectPage> {
             child: Column(
               children:[
 
-                // 🔍 search
                 Container(
                   width: 330,
                   padding: EdgeInsets.symmetric(horizontal: 10),
@@ -103,7 +101,6 @@ class _SubjectPageState extends State<SubjectPage> {
 
                 SizedBox(height: 20),
 
-                // 📚 lessons list
                 Expanded(
                   child: filteredLessons.isEmpty
                       ? Center(
@@ -131,7 +128,6 @@ class _SubjectPageState extends State<SubjectPage> {
                   ),
                 ),
 
-                // ➕ add lesson
                 Align(
                   alignment: Alignment.bottomRight,
                   child: ElevatedButton(

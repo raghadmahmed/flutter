@@ -39,6 +39,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: Color(0xFFEDEDED),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Color(0xFF0F172A),
         toolbarHeight: 120,
         title: SafeArea(
@@ -51,11 +52,20 @@ class _ProfileState extends State<Profile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children:[
                     Container(
+                      width: 30,
+                      height: 30,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Icon(Icons.chevron_left,size:30,color:Colors.black),
+                      child: IconButton(
+                        icon: Icon(Icons.chevron_left, size: 16),
+                        padding: EdgeInsets.zero,
+                        constraints: BoxConstraints(),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
                     ),
                     Icon(Icons.segment,size: 30,color:Colors.white),
                   ],
@@ -151,19 +161,6 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           ),
-        ),
-      ),
-      bottomNavigationBar: FluidNavBar(
-        icons:[
-          FluidNavBarIcon(icon: Icons.home),
-          FluidNavBarIcon(icon: Icons.access_time),
-          FluidNavBarIcon(icon: Icons.menu_book),
-          FluidNavBarIcon(icon: Icons.note_add),
-        ],
-        onChange:(index){},
-        style:FluidNavBarStyle(
-          barBackgroundColor:Color(0xFF0F172A),
-          iconSelectedForegroundColor:Colors.white,
         ),
       ),
     );

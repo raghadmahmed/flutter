@@ -3,6 +3,7 @@ import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:final_app/Screens/Side_menu.dart';
 import 'package:final_app/Screens/Add_Task_Screen.dart';
 import 'package:final_app/Screens/bottom_nav_bar.dart';
+import 'package:final_app/Screens/About_Task_Screen.dart';
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -181,14 +182,24 @@ class _HomePageState extends State<HomePage> {
                     itemCount: tasks.length,
                     itemBuilder: (_, i) {
                       var t = tasks[i];
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 20),
-                        padding: EdgeInsets.all(25),
-                        decoration: BoxDecoration(
-                          color: t["color"],
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Row(
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AboutTask(task: t),
+                              ),
+                            );
+                          },
+
+                          child: Container(
+                              margin: EdgeInsets.only(bottom: 20),
+                              padding: EdgeInsets.all(25),
+                              decoration: BoxDecoration(
+                                color: t["color"],
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
@@ -230,6 +241,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
+                      )
                       );
                     },
                   ),

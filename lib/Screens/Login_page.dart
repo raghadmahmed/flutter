@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: Form( // 👈 لفّينا الفورم
+      body: Form(
         key: _formKey,
         child: Column(
           children: [
@@ -96,7 +96,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       const SizedBox(height: 24),
 
-                      // Email
                       _buildInputField(
                         controller: _emailController,
                         hint: 'Email',
@@ -106,7 +105,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       const SizedBox(height: 14),
 
-                      // Password
                       _buildPasswordField(),
 
                       Align(
@@ -116,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ForgetpasswordScreen(),
+                                builder: (context) => Forgetpassword(),
                               ),
                             );
                           },
@@ -189,7 +187,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // 🔹 Email Field
   Widget _buildInputField({
     required TextEditingController controller,
     required String hint,
@@ -224,7 +221,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // 🔹 Password Field
   Widget _buildPasswordField() {
     return Container(
       decoration: BoxDecoration(
